@@ -1,0 +1,30 @@
+{
+  "name": "MVC-Tech-Blog",
+  "version": "1.0.0",
+  "description": "```md\r AS A developer who writes about tech\r I WANT a CMS-style blog site\r SO THAT I can publish articles, blog posts, and my thoughts and opinions\r ```",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CynthiaMohan/MVC-Tech-Blog.git"
+  },
+  "keywords": [],
+  "author": "Cynthia Mohan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CynthiaMohan/MVC-Tech-Blog/issues"
+  },
+  "homepage": "https://github.com/CynthiaMohan/MVC-Tech-Blog#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2"
+  }
+}

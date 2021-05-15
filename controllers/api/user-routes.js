@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, findOne } = require('../../models/User');
+const { User } = require('../../models/User');
 
 // GET /api/users
 router.get('/', async (req, res) => {
@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/users/1
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const updateUserData = await User.update(
@@ -69,7 +69,7 @@ router.put('/:id', withAuth, async (req, res) => {
 });
 
 // DELETE /api/users/1
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     const deletedUserData = await User.findOne({ where: { id } });
     if (!deletedUserData) {

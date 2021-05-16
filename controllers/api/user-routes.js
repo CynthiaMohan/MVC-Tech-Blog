@@ -1,13 +1,14 @@
 const router = require('express').Router();
+
 const { User } = require('../../models/User');
 
 // GET /api/users
 router.get('/', async (req, res) => {
     try {
-        const dbUserData = await User.findAll({
+        const getUserData = await User.findAll({
             attributes: { exclude: ['password'] }
         });
-        res.json(dbUserData);
+        res.json(getUserData);
     }
     catch (error) {
         if (error) {
@@ -39,8 +40,18 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const { username, email, password } = req.body;
     try {
-        const newPost = await User.Create({ username, email, password });
-        res.json(newPost);
+        const createUser = await User.create(
+
+            {
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            });
+        res.json({
+            data: createUser,
+            message: "New user has been added"
+        });
+
     } catch (error) {
         if (error) {
             res.status(500).json(error);
@@ -52,11 +63,13 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     try {
+        // const dataBeforeUpdate = await User.findOne({ attributes: { exclude: ['password'] }, where: { id} });
         const updateUserData = await User.update(
-            req.body, {
-            individualHooks: true,
-            where: { id }
-        });
+            // req.body, 
+            {
+                individualHooks: true,
+                where: { id }
+            });
         if (!updateUserData) {
             res.status(404).json({ message: "User Not Found" });
         }

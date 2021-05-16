@@ -38,25 +38,17 @@ router.get('/:id', async (req, res) => {
 
 // POST /api/users
 router.post('/', async (req, res) => {
-    const { username, email, password } = req.body;
     try {
-        const createUser = await User.create(
-
-            {
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password
-            });
-        res.json({
-            data: createUser,
-            message: "New user has been added"
+        const dbUserData = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
         });
-
-    } catch (error) {
-        if (error) {
-            res.status(500).json(error);
-        }
-    }
+        res.json(dbUserData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 });
 
 // PUT /api/users/1
@@ -65,7 +57,7 @@ router.put('/:id', async (req, res) => {
     try {
         // const dataBeforeUpdate = await User.findOne({ attributes: { exclude: ['password'] }, where: { id} });
         const updateUserData = await User.update(
-            // req.body, 
+            req.body,
             {
                 individualHooks: true,
                 where: { id }
